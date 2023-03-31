@@ -18,6 +18,7 @@ namespace Week2AssessmentQuestion1
 
         }
     
+
         public void LicensePlate(string OriginalDmv, int number)
         {
             //separation via spliting based on '-'
