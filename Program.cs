@@ -1,28 +1,29 @@
 ﻿using System.Runtime.Intrinsics.Arm;
-
 namespace Week2AssessmentQuestion1
 {
-    internal class Program
+    public class Program
     {
-            public string newDmv = "";
-        static void Main(string[] args)
+
+        public static void Main(string[] args)
         {
+            Performance perform = new Performance();
             Console.WriteLine("Question 1: ");
             Console.WriteLine("Enter the dmv number");
             string OriginalDmv = Console.ReadLine();
             Console.WriteLine("Enter the number to be separated : ");
-            int number = Convert.ToInt32(Console.ReadLine());
-            Program program = new Program();
-            program.LicensePlate(OriginalDmv, number);
-            Console.WriteLine("New DMV Number :  " + program.newDmv);
-
+            int num = Convert.ToInt32(Console.ReadLine());
+            perform.LicensePlate(OriginalDmv, num);
+            Console.WriteLine("New DMV Number :  " + perform.newDmvNumber);
         }
-    
+    }
+    public class Performance
+    {
+        public string newDmvNumber = "";
 
-        public void LicensePlate(string OriginalDmv, int number)
+        public void LicensePlate(string OriginalDmvNumber, int num)
         {
             //separation via spliting based on '-'
-            string[] RealDmvSep = OriginalDmv.Split("-");
+            string[] RealDmvSep = OriginalDmvNumber.Split("-");
             string dmv = "";
             foreach (string s in RealDmvSep)
             {
@@ -31,25 +32,26 @@ namespace Week2AssessmentQuestion1
                 dmv += upperString;
             }
             //assigning temporary value
-            String temp = "";
+            string temporary1 = "";
+            string temporary2 = ""; // because it overwrites the exist one in temporary 1
             int count = 0;
-            for (int i = dmv.Length - 1; i >= 0; i--)
+            for (int eachLetter = dmv.Length - 1; eachLetter >= 0; eachLetter--)
             {
-                if (count == number)
+                if (count == num)
                 {
-                    temp += "-";
+                    temporary1 += "-";
                     count = 0;
                 }
-                temp += dmv[i];
+                //appending into temporary variable
+                temporary1 += dmv[eachLetter];
                 count++;
             }
-            string temp2 = "";
-            for (int i = temp.Length - 1; i >= 0; i--)
+            for (int exchangeEachLetter = temporary1.Length - 1; exchangeEachLetter >= 0; exchangeEachLetter--)
             {
-                temp2 += temp[i];
+                temporary2 += temporary1[exchangeEachLetter];
             }
-            newDmv = temp2;
+            newDmvNumber = temporary2;
         }
-
     }
+
 }
